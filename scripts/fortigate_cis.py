@@ -26,7 +26,7 @@ KEYS = (
 
 TARGET = {
     "admin-telnet": "disable",
-    "admin-lockout-duration": "300",
+    "admin-lockout-duration": "900",
     "admin-ssh-grace-time": "30",
 }
 
