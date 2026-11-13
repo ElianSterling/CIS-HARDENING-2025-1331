@@ -17,7 +17,7 @@
 | R1-CISCO | Desactivar ICMP Redirects en Gi0/0 y Gi0/1 | Habilitado | Deshabilitado | `show ip interface` |
 | R1-CISCO | Desactivar explícitamente IP Source Routing | No se encontró configuración explícita | Desactivación explícita comprobada | `show running-config` |
 | FGT-01 | Deshabilitar Telnet administrativo | Habilitado | Deshabilitado | `show full-configuration system global` |
-| FGT-01 | Aumentar duración del bloqueo administrativo | 60 s | 300 s | `show full-configuration system global` |
+| FGT-01 | Aumentar duración del bloqueo administrativo | 60 s, luego 300 s | **900 s** (verificado 13/11/2026) | `show full-configuration system global` |
 | FGT-01 | Reducir plazo de autenticación SSH | 120 s | 30 s | `show full-configuration system global` |
 
 **Nota sobre Source Routing:** la ausencia inicial de `no ip source-route` no demuestra por sí misma que la función estuviera activada; lo que sí se documentó fue la aplicación y verificación de una desactivación explícita.
@@ -42,7 +42,7 @@ La evaluación original contiene **19 verificaciones locales**, no 19 controles 
 
 - Cisco IOS v2.2: **1.2.2.5** HTTP, **1.3.1.2** Source Routing y **2.3.3.2** Proxy ARP.
 - CIS Fortigate 7.0.x: **2.2.2** reintentos/bloqueo (objetivo **900 s** con umbral 3); **2.4.4** timeout administrativo; **2.4.5** canales cifrados.
-- El ajuste de **300 s** aplicado originalmente en FortiGate es insuficiente para 2.2.2 y debe verificarse de nuevo tras actualizar a 900 s.
+- El ajuste original de **300 s** era insuficiente para 2.2.2; fue elevado y **verificado a 900 s el 13/11/2026** con umbral de 3 intentos.
 - `port1` de FortiGate conserva HTTP por limitaciones de la instancia de evaluación: **2.4.5 NO CUMPLE**.
 
 Consultar [la matriz identificada y justificada](justificacion-hardening.md) y [el auditor integrado](operacion-auditor.md).
