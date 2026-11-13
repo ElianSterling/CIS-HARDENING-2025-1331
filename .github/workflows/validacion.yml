@@ -1,0 +1,27 @@
+name: Validación de scripts CIS (sin conexiones de red)
+on:
+  push:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/validacion.yml"
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/validacion.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v4
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Comprobar sintaxis de scripts
+        run: python -m compileall -q scripts tests
+      - name: Ejecutar pruebas offline de referencias CIS
+        run: python -m unittest discover -s tests -v
