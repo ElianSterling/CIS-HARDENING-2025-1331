@@ -22,14 +22,14 @@
 | Herramienta de análisis | `cis_checks.py`, `cis_benchmark_reporte.py` | Cumple como evaluador propio, no CIS-CAT |
 | Reglas y justificación CIS | `docs/justificacion-hardening.md` con IDs de Cisco v2.2 y Fortigate 7.0.x | Documentado, con limitaciones de versión |
 | Pruebas posteriores | Reportes SW1, R1, FGT y conectividad | Cumple |
-| Informe sin cambios | `cis_centro.py audit` + reportes JSON/MD | Script disponible; pendiente prueba de esta versión integrada |
-| Aplicación e informe posterior | `cis_centro.py apply --allow-changes` + `verify` | Script disponible; pendiente ejecución del flujo integrado |
+| Informe sin cambios | `cis_centro.py audit` + reportes JSON/MD | **Probado en vivo el 13/11/2026: 15/15 evidencias** |
+| Aplicación e informe posterior | `cis_centro.py apply --allow-changes` + `verify` | **Probado en vivo 13/11/2026: FGT 900 s; 6 CUMPLE, 1 NO CUMPLE** |
 
 ## Correcciones todavía pendientes en vivo
 
-1. Cambiar el FortiGate de bloqueo 300 s a **900 s** con la versión actualizada de `fortigate_cis.py`, verificar y generar informes nuevos. No declararlo conforme antes de la evidencia.
+1. **COMPLETADO 13/11/2026:** FortiGate pasó de 300 a **900 s**, confirmado por auditoría posterior. El control CIS 2.2.2 ahora CUMPLE.
 2. Mantener **CIS 2.4.5 NO CUMPLE** mientras `port1` permita HTTP. Registrar el aislamiento de la red como medida compensatoria; nunca afirmar cumplimiento total.
-3. Ejecutar y documentar el orquestador y las pruebas offline del evaluador.
+3. **Orquestador ejecutado en vivo**. Confirmar las pruebas offline (unittest/GitHub Actions) y conservar su salida.
 4. Preparar versiones amplias de los running-configs, censurar cualquier línea no permitida y revisarlas antes de su publicación.
 
 ## Video y entrega
