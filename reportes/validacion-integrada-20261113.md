@@ -54,7 +54,26 @@ Comando: `python cis_centro.py apply --allow-changes`.
 | FGT-01 | Fortigate 2.4.4 | Timeout administrativo | CUMPLE |
 | FGT-01 | Fortigate 2.4.5 | Acceso administrativo exclusivamente cifrado | **NO CUMPLE** |
 
-## 5. Riesgos, alcance y autenticidad
+## 5. Pruebas automáticas y exportaciones de la ejecución
+
+El 13/11/2026 se ejecutaron **tres pruebas offline**, todas satisfactorias (`Ran 3 tests ... OK`), mediante `python -m unittest discover -s tests -v`. Cubren:
+
+1. Escenario simulado con bloqueo 300 s: **5 CUMPLE, 2 NO CUMPLE**.
+2. Escenario simulado con bloqueo 900 s y HTTP disponible: **6 CUMPLE, 1 NO CUMPLE**.
+3. Escenario simulado con bloqueo 900 s y sin HTTP: **7 CUMPLE**.
+
+**Advertencia:** el tercer caso es un test sintético y NO indica que el FortiGate real haya alcanzado 7/7. El dispositivo real sigue en **6/7**, por la excepción HTTP.
+
+Se ejecutó `cis_running_censurados.py` desde el baseline posterior `20261113T123310Z`:
+
+- R1-CISCO: **34 líneas permitidas, 63 líneas censuradas**.
+- SW1-CISCO: **24 líneas permitidas, 51 líneas censuradas**.
+- Destino privado: `/opt/cis-auditor/running-configs-para-revision-20261113T123310Z/`.
+- `cis_exportar_publicables.py` generó también tres extractos finales en `/opt/cis-auditor/configuraciones-publicables/20261113T123310Z/` (20, 11 y 53 líneas respectivamente).
+
+Estos archivos ampliados **todavía requieren revisión del contenido** antes de su publicación. No se consideran copias completas restaurables.
+
+## 6. Riesgos, alcance y autenticidad
 
 El firewall FortiGate utiliza una edición de evaluación y conserva `set allowaccess ping ssh http` en `port1` por las restricciones de administración del laboratorio. Por ello **no se atribuye cumplimiento del CIS 2.4.5**. El tráfico administrativo HTTP debe mantenerse aislado y nunca exponerse a Internet.
 
