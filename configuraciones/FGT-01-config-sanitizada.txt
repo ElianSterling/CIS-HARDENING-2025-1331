@@ -1,0 +1,53 @@
+# FGT-01 — extracto de configuración final
+# Controles seleccionados: NO es backup restaurable
+config system global
+    set admin-lockout-duration 300
+    set admin-ssh-grace-time 30
+    set admin-telnet disable
+end
+config system interface
+    edit "port1"
+        set allowaccess ping ssh http
+    next
+    edit "port2"
+        set ip 172.31.13.2 255.255.255.252
+        set allowaccess ping
+        set role wan
+    next
+    edit "port3"
+        set ip 10.25.14.1 255.255.255.0
+        set allowaccess ping
+        set role lan
+    next
+end
+config firewall policy
+    edit "1"
+        set name "CISCO-TO-LAN"
+        set srcintf "port2"
+        set dstintf "port3"
+        set action accept
+        set srcaddr "LAN-CISCO"
+        set dstaddr "LAN-REMOTA"
+        set schedule "always"
+        set service "PING"
+        set logtraffic all
+    next
+    edit "2"
+        set name "LAN-TO-CISCO"
+        set srcintf "port3"
+        set dstintf "port2"
+        set action accept
+        set srcaddr "LAN-REMOTA"
+        set dstaddr "LAN-CISCO"
+        set schedule "always"
+        set service "PING"
+        set logtraffic all
+    next
+end
+config router static
+    edit "1"
+        set dst 10.25.13.0 255.255.255.0
+        set gateway 172.31.13.1
+        set device "port2"
+    next
+end
