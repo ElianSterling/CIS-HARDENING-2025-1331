@@ -38,6 +38,13 @@
 
 ## Alcance CIS
 
-Los resultados reportados corresponden a **19 verificaciones seleccionadas**, algunas de tipo informativo y de riesgo. **No equivalen a una certificación ni una revisión completa del CIS Benchmark.** No se atribuyen identificadores de sección del Benchmark sin verificar la edición aplicable y el contenido autorizado de ese documento.
+La evaluación original contiene **19 verificaciones locales**, no 19 controles CIS identificados. Se añadió un informe adicional que verifica **7 referencias CIS seleccionadas**, usando recomendaciones comprobadas de CIS Cisco IOS v2.2 (referencia histórica) y CIS Fortigate 7.0.x v1.3.0/v1.4.0 (sin cambios entre esas ediciones según CIS).
 
-El total de 19 se refiere al evaluador inicial/posterior; las pruebas separadas de R1 y FortiGate complementan esas evidencias y no se suman automáticamente a ese denominador.
+- Cisco IOS v2.2: **1.2.2.5** HTTP, **1.3.1.2** Source Routing y **2.3.3.2** Proxy ARP.
+- CIS Fortigate 7.0.x: **2.2.2** reintentos/bloqueo (objetivo **900 s** con umbral 3); **2.4.4** timeout administrativo; **2.4.5** canales cifrados.
+- El ajuste de **300 s** aplicado originalmente en FortiGate es insuficiente para 2.2.2 y debe verificarse de nuevo tras actualizar a 900 s.
+- `port1` de FortiGate conserva HTTP por limitaciones de la instancia de evaluación: **2.4.5 NO CUMPLE**.
+
+Consultar [la matriz identificada y justificada](justificacion-hardening.md) y [el auditor integrado](operacion-auditor.md).
+
+El total de 19 corresponde solo al evaluador inicial/posterior. No se certifica conformidad integral del CIS Benchmark, ni se afirma que IOSv 15.9 sea idéntico al benchmark histórico.
