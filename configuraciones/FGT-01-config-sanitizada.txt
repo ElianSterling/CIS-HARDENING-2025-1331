@@ -1,7 +1,7 @@
-# FGT-01 — extracto de configuración final
+# FGT-01 — extracto de configuración final (verificado 2026-11-13 12:33Z)
 # Controles seleccionados: NO es backup restaurable
 config system global
-    set admin-lockout-duration 300
+    set admin-lockout-duration 900
     set admin-ssh-grace-time 30
     set admin-telnet disable
 end
