@@ -107,6 +107,8 @@ Las verificaciones posteriores confirmaron que los tres puertos SSH seguían acc
 - `scripts/`: recopilación, evaluación, aplicación y verificación de controles
 - `reportes/`: informes generados en el laboratorio, previa revisión y sanitización
 - `docs/`: topología, metodología, controles y limitaciones
+  - [Topología y direccionamiento según matrícula](docs/topologia-y-direccionamiento.md)
+  - [Justificación técnica, referencias CIS y limitaciones](docs/justificacion-hardening.md)
 - `evidencias/`: capturas de las pruebas y del proceso
 - `configuraciones/`: extractos sanitizados de las configuraciones finales de R1, SW1 y FGT-01 (no son respaldos restaurables)
 - `.gitignore`: exclusión de respaldos, credenciales y archivos sensibles
