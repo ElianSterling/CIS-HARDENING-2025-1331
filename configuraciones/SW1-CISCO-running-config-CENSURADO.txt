@@ -1,0 +1,63 @@
+! SW1-CISCO: running-config CENSURADO (no restaurable)
+! Generado desde la auditoría posterior: 20261113T123310Z
+! Configuración original conservada PRIVADA en CIS-AUDITOR.
+! Las secciones y campos no autorizados fueron omitidos.
+! Resultado del sanitizador: 24 líneas permitidas; 51 líneas censuradas.
+!
+version 15.2
+hostname SW1-CISCO
+!
+! [BLOQUES DE CONFIGURACION NO AUTORIZADOS OMITIDOS]
+!
+aaa new-model
+!
+! [PARAMETROS Y MATERIAL DE AUTENTICACION OMITIDOS]
+!
+no ip domain-lookup
+ip cef
+spanning-tree mode pvst
+!
+! [OTRAS SECCIONES NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet0/0
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet0/1
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet0/2
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet0/3
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet1/0
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet1/1
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet1/2
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface GigabitEthernet1/3
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+!
+interface Vlan1
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+ ip address 10.25.13.2 255.255.255.0
+!
+no ip http server
+no ip http secure-server
+ip ssh version 2
+!
+! [OTROS PARAMETROS DE GESTION OMITIDOS]
+!
+line con 0
+line aux 0
+line vty 0 4
+ exec-timeout 5 0
+ ! [LINEAS NO AUTORIZADAS OMITIDAS]
+ transport input ssh
+!
+end
