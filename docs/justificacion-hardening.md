@@ -28,11 +28,11 @@ No se redistribuyen los PDF de terceros. Se identifican solamente números, obje
 | SW1-CISCO | Cisco IOS v2.2 **1.2.2.5** | Desactivar servidor HTTP | `no ip http server` | CUMPLE |
 | R1-CISCO | Cisco IOS v2.2 **1.3.1.2** | Prohibir IP Source Routing | `no ip source-route` | CUMPLE |
 | R1-CISCO | Cisco IOS v2.2 **2.3.3.2** | Desactivar IP Proxy ARP | `no ip proxy-arp` en Gi0/0 y Gi0/1 | CUMPLE |
-| FGT-01 | Fortigate 7.0.x **2.2.2** | Limitar reintentos y duración de bloqueo | Threshold 3, duración **300 s** en última evidencia antigua; CIS indica **900 s** | **NO CUMPLE AÚN** |
+| FGT-01 | Fortigate 7.0.x **2.2.2** | Limitar reintentos y duración de bloqueo | Threshold **3**, duración **900 s**; salida SSH verificada el 13/11/2026 | **CUMPLE** |
 | FGT-01 | Fortigate 7.0.x **2.4.4** | Configurar timeout de inactividad | `admintimeout 5` | CUMPLE |
 | FGT-01 | Fortigate 7.0.x **2.4.5** | Usar solo canales administrativos cifrados | port1 conserva HTTP por restricción de la edición de evaluación | **NO CUMPLE: EXCEPCIÓN DOCUMENTADA** |
 
-**Estado después de actualizar el objetivo del script a 900 s:** pendiente de ejecutar `apply` y `verify` en vivo. No declarar CUMPLE 2.2.2 hasta comprobarlo.
+**Estado verificado el 13/11/2026:** `cis_centro.py apply --allow-changes` ajustó `admin-lockout-duration` de 300 a **900**, y la verificación posterior confirmó la configuración. La matriz de siete controles terminó con **6 CUMPLE y 1 NO CUMPLE** (HTTP administrativo en FortiGate).
 
 ### Motivo de cada control
 
