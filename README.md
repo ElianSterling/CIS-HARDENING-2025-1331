@@ -7,6 +7,55 @@
 **Asignatura:** Seguridad de Redes  
 **Fecha del laboratorio:** 12 de noviembre de 2026
 
+## Galería visual del laboratorio
+
+<p align="center">
+  <a href="evidencias/20-topologia-gns3-con-ip.png">
+    <img src="evidencias/20-topologia-gns3-con-ip.png" alt="Topología del laboratorio CIS Hardening en GNS3 con direcciones IP" width="920">
+  </a>
+</p>
+
+<p align="center"><em>Topología de GNS3 con direccionamiento. El firewall FGT-01 se ejecuta como VM independiente en Proxmox y se conecta mediante las redes virtuales.</em></p>
+
+### Auditoría de seguridad y hardening
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <a href="evidencias/15-auditoria-inicial.png"><img src="evidencias/15-auditoria-inicial.png" alt="Auditoría inicial de 19 controles seleccionados" width="420"></a>
+      <br><strong>Auditoría inicial</strong><br>13 CUMPLE · 2 NO CUMPLE · 4 RIESGO
+    </td>
+    <td width="50%" align="center">
+      <a href="evidencias/21-informe-hardening-resumen.png"><img src="evidencias/21-informe-hardening-resumen.png" alt="Resumen consolidado después del hardening" width="420"></a>
+      <br><strong>Resultados posteriores</strong><br>15 CUMPLE · 0 NO CUMPLE · 4 RIESGO en la evaluación de 19 controles
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="evidencias/16-verificacion-r1.png"><img src="evidencias/16-verificacion-r1.png" alt="Verificación del hardening del router Cisco" width="420"></a>
+      <br><strong>R1-CISCO</strong><br>Verificación de medidas aplicadas
+    </td>
+    <td align="center">
+      <a href="evidencias/17-fortigate-hardening-apply.png"><img src="evidencias/17-fortigate-hardening-apply.png" alt="Aplicación automatizada del hardening FortiGate" width="420"></a>
+      <br><strong>FGT-01</strong><br>Aplicación y comprobación de controles
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="evidencias/18-ping-pc1-a-pc2-posterior.png"><img src="evidencias/18-ping-pc1-a-pc2-posterior.png" alt="Ping posterior de PC1 hacia PC2" width="420"></a>
+      <br><strong>Conectividad PC1 → PC2</strong><br>Prueba posterior al hardening
+    </td>
+    <td align="center">
+      <a href="evidencias/19-ping-pc2-a-pc1-posterior.png"><img src="evidencias/19-ping-pc2-a-pc1-posterior.png" alt="Ping posterior de PC2 hacia PC1" width="420"></a>
+      <br><strong>Conectividad PC2 → PC1</strong><br>Prueba posterior al hardening
+    </td>
+  </tr>
+</table>
+
+<p align="center"><a href="evidencias/INDICE.md"><strong>Ver las 21 evidencias y su descripción</strong></a></p>
+
+---
+
 ## Propósito
 
 Implementar y evaluar medidas de endurecimiento de seguridad en una infraestructura virtual de **GNS3 + Proxmox** integrada por un router Cisco IOSv, un switch Cisco IOSvL2 y un firewall FortiGate.
