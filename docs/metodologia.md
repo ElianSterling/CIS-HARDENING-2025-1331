@@ -27,7 +27,15 @@ Los scripts guardaron evidencia y realizaron verificaciones posteriores. Las apl
 - `fortigate_cis.py verify` verificó la persistencia de los parámetros administrativos.
 - Se comprobaron los accesos SSH a los tres equipos y la conectividad de PC1 ↔ PC2.
 
-## 6. Evidencias y publicación
+## 6. Automatizador integrado y correlación CIS
+
+El programa `cis_centro.py` ofrece `audit`, `apply --allow-changes`, `verify` y `report`. Reutiliza las automatizaciones anteriores y genera un reporte adicional con **7 controles referenciados** mediante `cis_benchmark_reporte.py`. Las 19 comprobaciones originales no se presentan como 19 recomendaciones oficiales.
+
+En CIS Fortigate 7.0.x, el control 2.2.2 requiere 3 intentos y bloqueo de **900 segundos**. La última aplicación documentada tenía 300 s y fue necesario corregir el objetivo del script. La administración HTTP en port1 sigue como excepción del control CIS 2.4.5.
+
+Consultar [referencias CIS y limitaciones](justificacion-hardening.md) y [comandos del auditor](operacion-auditor.md).
+
+## 7. Evidencias y publicación
 
 Los informes Markdown y JSON generados se conservan en CIS-AUDITOR. Para hacerlos públicos, revisar contenidos y sanitizar direcciones, identificadores, firmas de configuración y cualquier dato sensible.
 
