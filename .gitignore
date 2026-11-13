@@ -1,0 +1,35 @@
+# Entorno Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Credenciales y configuraciones locales
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+known_hosts
+**/known_hosts
+
+# Configuraciones originales y respaldos
+backups/
+**/backups/
+config/
+**/config/
+*.conf
+*.pcap
+*.pcapng
+*.log
+
+# Editor y sistema
+.DS_Store
+.vscode/
+.idea/
