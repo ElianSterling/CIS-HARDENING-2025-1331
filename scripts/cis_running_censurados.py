@@ -23,10 +23,10 @@ SAFE_GLOBAL = [
     r"no ip http server", r"no ip http secure-server",
     r"ip ssh version 2", r"ip routing",
     r"spanning-tree mode (?:pvst|rapid-pvst)",
-    r"ip route 10\\.25\\.14\\.0 255\\.255\\.255\\.0 172\\.31\\.13\\.2(?: [0-9]+)?",
+    r"ip route 10\.25\.14\.0 255\.255\.255\.0 172\.31\.13\.2(?: [0-9]+)?",
 ]
 SAFE_NESTED = [
-    r"ip address (?:10\\.25\\.13\\.[12] 255\\.255\\.255\\.0|172\\.31\\.13\\.1 255\\.255\\.255\\.252)",
+    r"ip address (?:10\.25\.13\.[12] 255\.255\.255\.0|172\.31\.13\.1 255\.255\.255\.252)",
     r"no ip redirects", r"no ip proxy-arp",
     r"(?:no )?shutdown", r"duplex (?:auto|full|half)",
     r"speed (?:auto|[0-9]+)",r"transport input ssh",
