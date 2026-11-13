@@ -1,46 +1,75 @@
-# Justificación de controles de hardening y referencias CIS
+# Matriz de referencias CIS, hardening y excepciones
 
-**Alcance:** controles seleccionados de configuración en laboratorio. **No certifica conformidad integral ni equivale a ejecutar CIS-CAT Pro.**
+**Laboratorio:** CIS-HARDENING-2025-1331  
+**Dispositivos:** Cisco IOSv 15.9, IOSvL2 15.2 y FortiGate FortiOS 7.0.3  
+**Alcance:** comprobaciones seleccionadas, sin certificación de cumplimiento global.
 
-## 1. Fuentes de referencia
+## Fuentes comprobadas
 
-- [CIS Benchmarks — familia Cisco](https://www.cisecurity.org/benchmark/cisco)
-- [CIS Benchmarks — familia Fortinet](https://www.cisecurity.org/benchmark/fortinet)
-- [Catálogo oficial de CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks)
+1. **CIS Cisco IOS Benchmark v2.2 (noviembre de 2007)**, publicado por CIS:  
+   https://www.cisecurity.org/-/jssmedia/Project/cisecurity/cisecurity/data/media/files/uploads/2017/04/CIS_Cisco_IOS_Benchmark_v22.pdf  
+   **Importante:** es una referencia histórica; su aplicación a Cisco IOSv 15.9 y IOSvL2 15.2 requiere considerar diferencias de plataforma y edición.
+2. **CIS Fortigate 7.0.x Benchmark v1.3.0 (2024)**, cuyos controles específicos fueron cotejados:  
+   https://1cdn.com.au/wp-content/uploads/2023/01/CIS_Fortigate_7.0.x_Benchmark_v1.3.0.pdf  
+   El fabricante del benchmark anunció **v1.4.0 en enero de 2026 sin cambios respecto de la edición anterior**:  
+   https://www.cisecurity.org/insights/blog/cis-benchmarks-january-2026-update  
+   Catálogo oficial: https://www.cisecurity.org/benchmark/fortinet
+3. **Referencias técnicas de fabricantes** para ajustes que no se atribuyen a un identificador CIS específico:
+   - Cisco — https://sec.cloudapps.cisco.com/security/center/resources/IOS_XE_hardening
+   - Fortinet — https://docs.fortinet.com/document/fortigate/7.0.3/cli-reference/1620/system-global
 
-En el catálogo de CIS se ofrece **CIS Fortigate 7.0.x Benchmark, versión 1.4.0**, familia compatible con la versión de laboratorio FortiOS 7.0.3. El catálogo público actual de Cisco muestra, entre otras, ediciones para IOS 16/17, pero **no demuestra equivalencia automática con Cisco IOSv 15.9**, que es la imagen usada.
+No se redistribuyen los PDF de terceros. Se identifican solamente números, objetivos y nuestros propios resultados de laboratorio.
 
-**Estado de la correlación:** falta descargar y revisar la edición aplicable de los PDF oficiales, contrastar los textos/números de las recomendaciones e identificar cuáles coinciden exactamente con cada control. Por tanto, los controles de la tabla se documentan por sus **objetivos técnicos** y no se les atribuyen identificadores CIS aún no comprobados.
+## Controles identificados del CIS Benchmark
 
-## 2. Recomendaciones técnicas aplicadas
-
-| Equipo | Parámetro de hardening | Razón | Verificación | Estado |
+| Equipo | ID CIS | Objetivo | Configuración o resultado verificado | Situación |
 |---|---|---|---|---|
-| SW1-CISCO | `no ip http server` | Eliminar administración HTTP sin cifrado, reduciendo exposición y superficie de ataque | `show ip http server status` | Verificado |
-| SW1-CISCO | `no ip http secure-server` | Eliminar un servicio web de administración que no se necesita en el laboratorio; SSH queda disponible | `show ip http server status`, `show ip ssh` | Verificado |
-| R1-CISCO | `no ip proxy-arp` en Gi0/0 y Gi0/1 | Evitar respuestas ARP por hosts ajenos al segmento cuando no forman parte del diseño de red | `show ip interface` | Verificado |
-| R1-CISCO | `no ip redirects` en Gi0/0 y Gi0/1 | Reducir la posibilidad de anuncios de redirección ICMP no deseados a hosts | `show ip interface` | Verificado |
-| R1-CISCO | `no ip source-route` | Prohibir explícitamente el uso de source routing IPv4 que permitiría rutas elegidas por el emisor | `show running-config` | Verificado |
-| FGT-01 | `set admin-telnet disable` | Deshabilitar administración remota sin cifrado | `show full-configuration system global` | Verificado |
-| FGT-01 | `set admin-lockout-duration 300` | Aumentar el tiempo de bloqueo después de intentos fallidos de autenticación | `show full-configuration system global` | Verificado |
-| FGT-01 | `set admin-ssh-grace-time 30` | Limitar el tiempo permitido para completar la autenticación SSH | `show full-configuration system global` | Verificado |
+| R1-CISCO | Cisco IOS v2.2 **1.2.2.5** | Desactivar servidor HTTP | `no ip http server` | CUMPLE |
+| SW1-CISCO | Cisco IOS v2.2 **1.2.2.5** | Desactivar servidor HTTP | `no ip http server` | CUMPLE |
+| R1-CISCO | Cisco IOS v2.2 **1.3.1.2** | Prohibir IP Source Routing | `no ip source-route` | CUMPLE |
+| R1-CISCO | Cisco IOS v2.2 **2.3.3.2** | Desactivar IP Proxy ARP | `no ip proxy-arp` en Gi0/0 y Gi0/1 | CUMPLE |
+| FGT-01 | Fortigate 7.0.x **2.2.2** | Limitar reintentos y duración de bloqueo | Threshold 3, duración **300 s** en última evidencia antigua; CIS indica **900 s** | **NO CUMPLE AÚN** |
+| FGT-01 | Fortigate 7.0.x **2.4.4** | Configurar timeout de inactividad | `admintimeout 5` | CUMPLE |
+| FGT-01 | Fortigate 7.0.x **2.4.5** | Usar solo canales administrativos cifrados | port1 conserva HTTP por restricción de la edición de evaluación | **NO CUMPLE: EXCEPCIÓN DOCUMENTADA** |
 
-**Matices técnicos:** que `no ip source-route` no figurara inicialmente en el running-config no prueba por sí solo que source routing estuviera habilitado. En SW1 se conserva SSH, con las limitaciones criptográficas de la imagen de laboratorio. En FortiGate la administración HTTP de port1 permanece habilitada por las restricciones de evaluación; se trata como riesgo residual y no como un control corregido.
+**Estado después de actualizar el objetivo del script a 900 s:** pendiente de ejecutar `apply` y `verify` en vivo. No declarar CUMPLE 2.2.2 hasta comprobarlo.
 
-## 3. Herramienta utilizada
+### Motivo de cada control
 
-El equipo Debian `CIS-AUDITOR` ejecutó scripts Python con Netmiko y Paramiko:
-- `cis_audit_baseline.py` obtiene evidencias de los tres equipos **sin modificar su configuración**.
-- `cis_checks.py` analiza automáticamente **19 verificaciones seleccionadas**; no las equipara a conformidad integral.
-- `cis_apply_sw1.py` y `cis_apply_r1.py` solicitan confirmación, aplican cambios y verifican estado posterior.
-- `fortigate_cis.py` ofrece los modos `audit`, `apply` y `verify`, con informes JSON de ejecución.
-- `cis_comparativo.py` y `cis_informe_final.py` documentan diferencias y resultados específicos.
+- **HTTP Cisco:** eliminar interfaces web innecesarias; sin cifrado, HTTP puede exponer credenciales.
+- **Source Routing:** evitar rutas definidas por el origen que permitan eludir controles previstos por la infraestructura.
+- **Proxy ARP:** reducir el riesgo de extender el perímetro entre segmentos L2 de forma no prevista.
+- **Bloqueo administrativo:** ralentizar intentos reiterados de autenticación tras alcanzar el umbral.
+- **Timeout de sesión:** reducir exposición de una sesión administrativa desatendida.
+- **Cifrado administrativo FortiGate:** evitar credenciales transportadas mediante HTTP/Telnet; en este laboratorio no se completó por la limitación de acceso HTTPS.
 
-El evaluador de 19 verificaciones arrojó **13 CUMPLE, 2 NO CUMPLE, 4 RIESGO** al inicio y **15 CUMPLE, 0 NO CUMPLE, 4 RIESGO** tras los cambios de SW1. Los cambios R1/FGT se verificaron mediante informes **adicionales**, no como parte del denominador de las 19 verificaciones.
+## Buenas prácticas aplicadas adicionales (sin forzar equivalencia CIS)
 
-## 4. Limitaciones y pendientes
+| Equipo | Ajuste | Motivo |
+|---|---|---|
+| SW1-CISCO | Desactivar `ip http secure-server` | Servicio web no utilizado; SSH v2 permanece disponible |
+| R1-CISCO | `no ip redirects` en Gi0/0 y Gi0/1 | Reducir anuncios ICMP Redirect innecesarios |
+| FGT-01 | `admin-telnet disable` | Desactivar servicio remoto sin cifrado |
+| FGT-01 | `admin-ssh-grace-time 30` | Reducir ventana de autenticación SSH |
+| FGT-01 | `admin-ssh-v1 disable` | Mantener solo SSH versión 2 |
 
-1. Falta **correlación control por control con una edición comprobada de los PDF CIS** para satisfacer literalmente el apartado «recomendaciones del CIS Benchmark».
-2. Los scripts de escaneo y aplicación son **módulos separados**. Falta una interfaz única de `audit`/`apply`/`report` para toda la infraestructura si se exige expresamente «el script» en singular.
-3. Los archivos de `configuraciones/` son **extractos sanitizados no restaurables**. Si el profesor requiere running-configs íntegros, generar versiones completas **con secretos e identificadores sensibles debidamente ocultados**, después de una revisión manual.
-4. La evidencia no constituye una auditoría exhaustiva o certificación CIS.
+**No confundir:** desactivar Telnet globalmente **no demuestra** el cumplimiento de CIS 2.4.5 si HTTP sigue habilitado en `port1`.
+
+## Herramientas y trazabilidad
+
+- `scripts/cis_centro.py audit`: recopila nueva evidencia 15/15 por SSH sin aplicar cambios; ejecuta la evaluación de 19 comprobaciones, revisiones R1 y FGT y el reporte CIS de 7 controles.
+- `scripts/cis_centro.py apply --allow-changes`: solo con autorización explícita; ejecuta scripts de aplicación SW1, R1 y FGT; luego verifica.
+- `scripts/cis_centro.py verify`: comprobación de solo lectura posterior.
+- `scripts/cis_centro.py report`: informe de los **7** controles referenciados, usando reportes locales existentes.
+- `scripts/cis_checks.py`: evaluador original de **19 verificaciones de configuración**, que **no equivale** a 19 cláusulas CIS identificadas.
+- `scripts/cis_benchmark_reporte.py`: evaluación de **7 referencias CIS verificadas**; deja visibles las desviaciones.
+
+En el evaluador original se observaron 13 CUMPLE, 2 NO CUMPLE, 4 RIESGO antes, y 15 CUMPLE, 0 NO CUMPLE, 4 RIESGO después de SW1. Estos números se refieren **solo al evaluador original**, no a la matriz CIS de siete controles.
+
+## Limitaciones y medidas compensatorias
+
+- **FortiGate HTTP:** la interfaz `port1` permanece accesible por HTTP debido al comportamiento de la edición virtual de evaluación usada. Mantener el acceso en una **red de administración aislada**, no expuesta a Internet. Registrar explícitamente que **CIS 2.4.5 NO CUMPLE**. No forzar el cambio a HTTPS si la versión de evaluación no permite mantener administración.
+- **SSH Cisco:** dispositivos IOSv usan algoritmos heredados; solo en entorno controlado.
+- **Proxy ARP y Source Routing:** desactivar explícitamente `no ip source-route` no permite asegurar que la característica estuviera activada inicialmente solo porque faltaba la línea.
+- **CIS-CAT:** no se ejecutó un escáner CIS-CAT oficial. La herramienta es un evaluador Python propio inspirado en recomendaciones CIS, cuya matriz documenta la fuente y el estado exacto.
+- **Running-configs:** las versiones ya publicadas en `configuraciones/` son **extractos sanitizados**, no backups íntegros. Una revisión de archivos adicionales será necesaria antes de publicar versiones estructurales más extensas.
