@@ -100,6 +100,7 @@ El laboratorio incluye ahora un **evaluador propio de 7 controles seleccionados 
 
 - [Matriz de controles CIS con identificación, justificaciones y excepciones](docs/justificacion-hardening.md)
 - [Guía de ejecución del auditor integrado](docs/operacion-auditor.md)
+- [Lista de requisitos del profesor y pendientes antes del video](docs/revision-requisitos.md)
 - [Topología y direccionamiento basado en la matrícula](docs/topologia-y-direccionamiento.md)
 
 ## Resultados documentados
