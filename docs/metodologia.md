@@ -1,0 +1,34 @@
+# Metodología y trazabilidad
+
+## 1. Construcción del laboratorio
+
+Se preparó una infraestructura en Proxmox + GNS3 con R1-CISCO, SW1-CISCO, FGT-01, PC1 y PC2. Se conectó el contenedor Debian CIS-AUDITOR a las redes de gestión necesarias.
+
+## 2. Diagnóstico del canal de administración
+
+Los paquetes SYN de CIS-AUDITOR llegaban al router, pero R1 registraba `TCP: checksum failure`. Se desactivó TX checksum offloading **únicamente en eth1 del CT 180**, lo que permitió restablecer SSH sin retirar AAA ni otros controles del equipo. Un servicio de systemd aplica el ajuste en futuros arranques del contenedor.
+
+## 3. Auditoría inicial sin cambios
+
+`cis_audit_baseline.py` recopiló cinco salidas por dispositivo, utilizando SSH. `cis_checks.py` evaluó 19 verificaciones predefinidas y produjo una línea base con 13 CUMPLE, 2 NO CUMPLE y 4 RIESGO.
+
+## 4. Aplicación controlada
+
+- `cis_apply_sw1.py` solicitó confirmación y desactivó HTTP/HTTPS en SW1.
+- `cis_apply_r1.py` solicitó confirmación y aplicó desactivaciones de Proxy ARP, ICMP Redirects y Source Routing.
+- `fortigate_cis.py apply` solicitó confirmación y ajustó Telnet, bloqueo administrativo y plazo de autenticación SSH.
+
+Los scripts guardaron evidencia y realizaron verificaciones posteriores. Las aplicaciones con fallos pueden dejar cambios en la running-config o configuración activa; deben revisarse desde consola y **no se consideran transacciones con rollback garantizado**.
+
+## 5. Verificación posterior
+
+- El evaluador repitió las mismas 19 comprobaciones con 15 CUMPLE, 0 NO CUMPLE y 4 RIESGO.
+- `r1_precheck.py` verificó las dos interfaces del router tras los ajustes.
+- `fortigate_cis.py verify` verificó la persistencia de los parámetros administrativos.
+- Se comprobaron los accesos SSH a los tres equipos y la conectividad de PC1 ↔ PC2.
+
+## 6. Evidencias y publicación
+
+Los informes Markdown y JSON generados se conservan en CIS-AUDITOR. Para hacerlos públicos, revisar contenidos y sanitizar direcciones, identificadores, firmas de configuración y cualquier dato sensible.
+
+Las capturas y el video demostrativo deben añadirse con resultados reales: no se usan imágenes o logs simulados.
