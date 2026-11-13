@@ -59,7 +59,17 @@ Las verificaciones posteriores confirmaron que los tres puertos SSH seguían acc
 - `reportes/`: informes generados en el laboratorio, previa revisión y sanitización
 - `docs/`: topología, metodología, controles y limitaciones
 - `evidencias/`: capturas de las pruebas y del proceso
+- `configuraciones/`: extractos sanitizados de las configuraciones finales de R1, SW1 y FGT-01 (no son respaldos restaurables)
 - `.gitignore`: exclusión de respaldos, credenciales y archivos sensibles
+
+## Evidencias y configuraciones finales
+
+- [Galería de 21 capturas e índice de evidencias](evidencias/INDICE.md)
+- [R1-CISCO — extracto sanitizado](configuraciones/R1-CISCO-running-config-sanitizado.txt)
+- [SW1-CISCO — extracto sanitizado](configuraciones/SW1-CISCO-running-config-sanitizado.txt)
+- [FGT-01 — extracto sanitizado](configuraciones/FGT-01-config-sanitizada.txt)
+
+Los tres extractos se generaron tras una auditoría de solo lectura de **15/15 evidencias** (cinco por dispositivo). Los respaldos originales permanecen privados en CIS-AUDITOR. La sanitización se basa en una selección cerrada de comandos y campos autorizados.
 
 ## Reproducibilidad
 
