@@ -4,9 +4,12 @@ import json, os, re
 from pathlib import Path
 
 root = Path('/opt/cis-auditor')
-stamp = '20261113T013715Z'
+stamp = max(
+    p.name for p in (root/'backups').iterdir()
+    if p.is_dir() and re.fullmatch(r'[0-9]{8}T[0-9]{6}Z', p.name)
+)
 backup = root/'backups'/stamp
-out = root/'configuraciones-publicables'
+out = root/'configuraciones-publicables'/stamp
 report = root/'reportes'/f'baseline_{stamp}.json'
 os.umask(0o077)
 
@@ -81,7 +84,7 @@ def forti():
         if m and m[1] in allowed: found[m[1]]=m[2]
     if not {'admin-telnet','admin-lockout-duration','admin-ssh-grace-time'} <= found.keys():
         raise SystemExit('ERROR: faltan datos globales del FortiGate.')
-    if found['admin-telnet']!='disable' or found['admin-lockout-duration']!='300' or found['admin-ssh-grace-time']!='30':
+    if found['admin-telnet']!='disable' or found['admin-lockout-duration']!='900' or found['admin-ssh-grace-time']!='30':
         raise SystemExit('ERROR: valores de FortiGate inesperados.')
     lines += [f'    set {k} {v}' for k,v in found.items()]+['end']
     spec=[
@@ -102,7 +105,7 @@ outputs={
 if 'no ip source-route' not in outputs['R1-CISCO-running-config-sanitizado.txt'] or 'no ip http server' not in outputs['SW1-CISCO-running-config-sanitizado.txt']:
     raise SystemExit('ERROR: evidencia esperada no encontrada en Cisco.')
 if out.exists(): raise SystemExit(f'ERROR: {out} ya existe. No se sobrescribe.')
-out.mkdir(mode=0o700)
+out.mkdir(mode=0o700, parents=True)
 for name,content in outputs.items():
     p=out/name
     p.write_text(content,encoding='utf-8')
