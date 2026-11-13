@@ -1,0 +1,11 @@
+# SW1-CISCO — extracto de show running-config
+# Controles seleccionados: NO es backup restaurable
+hostname SW1-CISCO
+!
+no ip http server
+no ip http secure-server
+ip ssh version 2
+!
+interface Vlan1
+ ip address 10.25.13.2 255.255.255.0
+!
