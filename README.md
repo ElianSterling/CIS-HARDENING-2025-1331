@@ -93,7 +93,7 @@ flowchart LR
 El laboratorio incluye ahora un **evaluador propio de 7 controles seleccionados con referencias CIS identificadas**, además del evaluador original de 19 verificaciones de configuración. No representan una certificación CIS-CAT.
 
 - **Cisco:** referencia histórica CIS Cisco IOS Benchmark v2.2 (2007), controles 1.2.2.5, 1.3.1.2 y 2.3.3.2; no se afirma compatibilidad certificada con IOSv 15.9.
-- **FortiGate:** CIS Fortigate 7.0.x, controles 2.2.2, 2.4.4 y 2.4.5; el bloqueo administrativo objetivo es **900 segundos**. La última evidencia publicada reflejaba 300 s, por lo que este ajuste requiere ejecución y verificación en el dispositivo.
+- **FortiGate:** CIS Fortigate 7.0.x, controles 2.2.2, 2.4.4 y 2.4.5; el bloqueo administrativo objetivo es **900 segundos**. La auditoría posterior del **13 de noviembre de 2026** confirmó umbral de **3 intentos** y bloqueo de **900 segundos**; este control ahora **CUMPLE**.
 - **Excepción pendiente:** HTTP en `port1` impide declarar conforme el control 2.4.5. Se mantiene por las limitaciones de la instancia de evaluación, exclusivamente en red aislada.
 
 **Programa principal:** `scripts/cis_centro.py` ofrece los modos `audit` (sin cambios), `apply --allow-changes` (autorización explícita), `verify` (solo lectura) y `report` (informe offline). Cada función reutiliza los scripts y controles previamente documentados.
@@ -102,6 +102,17 @@ El laboratorio incluye ahora un **evaluador propio de 7 controles seleccionados 
 - [Guía de ejecución del auditor integrado](docs/operacion-auditor.md)
 - [Lista de requisitos del profesor y pendientes antes del video](docs/revision-requisitos.md)
 - [Topología y direccionamiento basado en la matrícula](docs/topologia-y-direccionamiento.md)
+
+## Validación integrada del 13 de noviembre de 2026
+
+Se ejecutó exitosamente `cis_centro.py audit` seguido de `cis_centro.py apply --allow-changes`. El equipo FortiGate pasó de `admin-lockout-duration 300` a **900**, y la auditoría posterior de solo lectura corroboró el cambio. R1 y SW1 no requirieron modificaciones adicionales.
+
+| Evaluador | Resultado posterior |
+|---|---|
+| 19 verificaciones locales | **15 CUMPLE, 0 NO CUMPLE, 4 RIESGO** |
+| 7 controles con referencias CIS | **6 CUMPLE, 1 NO CUMPLE** |
+
+**Excepción pendiente:** CIS Fortigate 2.4.5, HTTP de administración en `port1`. No se presenta el laboratorio como completamente conforme. [Resumen de ejecución verificada](reportes/validacion-integrada-20261113.md).
 
 ## Resultados documentados
 
@@ -113,7 +124,7 @@ Los cambios de R1 y FGT-01 se verificaron en reportes adicionales, independiente
 |---|---|
 | SW1-CISCO | Desactivación de HTTP y HTTPS administrativos; SSH v2 conservado |
 | R1-CISCO | Desactivación de Proxy ARP e ICMP Redirects en Gi0/0 y Gi0/1; desactivación explícita de IP Source Routing |
-| FGT-01 | Telnet administrativo deshabilitado; duración de bloqueo administrativo de 60 a 300 s; tiempo de autenticación SSH de 120 a 30 s |
+| FGT-01 | Telnet administrativo deshabilitado; bloqueo administrativo de 60 a 300 s en la primera etapa y a **900 s** tras correlación CIS; tiempo de autenticación SSH de 120 a 30 s |
 
 Las verificaciones posteriores confirmaron que los tres puertos SSH seguían accesibles. También se validó la comunicación entre PC1 y PC2 tras los cambios.
 
