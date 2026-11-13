@@ -88,6 +88,20 @@ flowchart LR
 | Enlace R1 ↔ FGT | `172.31.13.0/30` |
 | LAN remota | `10.25.14.0/24` |
 
+## Validación de controles CIS
+
+El laboratorio incluye ahora un **evaluador propio de 7 controles seleccionados con referencias CIS identificadas**, además del evaluador original de 19 verificaciones de configuración. No representan una certificación CIS-CAT.
+
+- **Cisco:** referencia histórica CIS Cisco IOS Benchmark v2.2 (2007), controles 1.2.2.5, 1.3.1.2 y 2.3.3.2; no se afirma compatibilidad certificada con IOSv 15.9.
+- **FortiGate:** CIS Fortigate 7.0.x, controles 2.2.2, 2.4.4 y 2.4.5; el bloqueo administrativo objetivo es **900 segundos**. La última evidencia publicada reflejaba 300 s, por lo que este ajuste requiere ejecución y verificación en el dispositivo.
+- **Excepción pendiente:** HTTP en `port1` impide declarar conforme el control 2.4.5. Se mantiene por las limitaciones de la instancia de evaluación, exclusivamente en red aislada.
+
+**Programa principal:** `scripts/cis_centro.py` ofrece los modos `audit` (sin cambios), `apply --allow-changes` (autorización explícita), `verify` (solo lectura) y `report` (informe offline). Cada función reutiliza los scripts y controles previamente documentados.
+
+- [Matriz de controles CIS con identificación, justificaciones y excepciones](docs/justificacion-hardening.md)
+- [Guía de ejecución del auditor integrado](docs/operacion-auditor.md)
+- [Topología y direccionamiento basado en la matrícula](docs/topologia-y-direccionamiento.md)
+
 ## Resultados documentados
 
 El evaluador inicial consideró **19 comprobaciones seleccionadas**: **13 CUMPLE, 2 NO CUMPLE y 4 RIESGO**. Después del hardening de SW1, sobre esas mismas 19 comprobaciones se obtuvo **15 CUMPLE, 0 NO CUMPLE y 4 RIESGO**.
