@@ -156,7 +156,7 @@ El auditor se ejecutó en Debian 12 con Python, Netmiko y Paramiko. Los disposit
 
 ## Alcance y límites
 
-Este proyecto documenta **controles seleccionados y prácticas de hardening**, no una auditoría integral ni una certificación oficial de cumplimiento CIS. Antes de asociar controles a numerales específicos del CIS Benchmark es necesario validar la edición y versión de referencia.
+Este proyecto documenta **controles seleccionados y prácticas de hardening**, no una auditoría integral ni una certificación oficial de cumplimiento CIS. La nueva matriz identifica referencias de los CIS Benchmarks consultados y explica sus límites: la edición histórica de Cisco no certifica compatibilidad con IOSv 15.9 y el control FortiGate 2.4.5 conserva una excepción real.
 
 Se mantienen riesgos residuales: algoritmos SSH heredados en IOSv; FortiOS 7.0.3 de evaluación; y administración HTTP habilitada en la interfaz de gestión de FortiGate por restricciones de este laboratorio.
 
