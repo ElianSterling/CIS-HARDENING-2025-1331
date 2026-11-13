@@ -1,0 +1,16 @@
+{
+  "device": "R1-CISCO",
+  "timestamp_utc": "2026-11-12T22:26:11.869725+00:00",
+  "source_route_explicitly_disabled": true,
+  "interfaces": {
+    "GigabitEthernet0/0": {
+      "proxy_arp": "disabled",
+      "icmp_redirects": "never"
+    },
+    "GigabitEthernet0/1": {
+      "proxy_arp": "disabled",
+      "icmp_redirects": "never"
+    }
+  },
+  "mode": "solo lectura"
+}

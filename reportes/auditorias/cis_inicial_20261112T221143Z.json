@@ -1,0 +1,140 @@
+{
+  "timestamp": "20261112T221143Z",
+  "baseline": "20261112T221053Z",
+  "scope": "Controles seleccionados, no auditoria CIS completa",
+  "findings": [
+    {
+      "device": "R1-CISCO",
+      "control": "AAA new-model",
+      "status": "CUMPLE",
+      "evidence": "R1-CISCO_01.txt",
+      "detail": "Autenticacion AAA"
+    },
+    {
+      "device": "R1-CISCO",
+      "control": "SSH version 2",
+      "status": "CUMPLE",
+      "evidence": "R1-CISCO_02.txt",
+      "detail": "SSH habilitado"
+    },
+    {
+      "device": "R1-CISCO",
+      "control": "VTY solo SSH",
+      "status": "CUMPLE",
+      "evidence": "R1-CISCO_01.txt",
+      "detail": "Telnet deshabilitado"
+    },
+    {
+      "device": "R1-CISCO",
+      "control": "Timeout VTY maximo 10 minutos",
+      "status": "CUMPLE",
+      "evidence": "R1-CISCO_01.txt",
+      "detail": "Tiempo de inactividad"
+    },
+    {
+      "device": "R1-CISCO",
+      "control": "HTTP deshabilitado",
+      "status": "CUMPLE",
+      "evidence": "R1-CISCO_05.txt",
+      "detail": "Estado operativo del servidor web"
+    },
+    {
+      "device": "R1-CISCO",
+      "control": "HTTPS deshabilitado",
+      "status": "CUMPLE",
+      "evidence": "R1-CISCO_05.txt",
+      "detail": "Estado operativo del servidor web"
+    },
+    {
+      "device": "R1-CISCO",
+      "control": "Algoritmos SSH heredados",
+      "status": "RIESGO",
+      "evidence": "R1-CISCO_02.txt",
+      "detail": "Limitacion criptografica de IOSv"
+    },
+    {
+      "device": "SW1-CISCO",
+      "control": "AAA new-model",
+      "status": "CUMPLE",
+      "evidence": "SW1-CISCO_01.txt",
+      "detail": "Autenticacion AAA"
+    },
+    {
+      "device": "SW1-CISCO",
+      "control": "SSH version 2",
+      "status": "CUMPLE",
+      "evidence": "SW1-CISCO_02.txt",
+      "detail": "SSH habilitado"
+    },
+    {
+      "device": "SW1-CISCO",
+      "control": "VTY solo SSH",
+      "status": "CUMPLE",
+      "evidence": "SW1-CISCO_01.txt",
+      "detail": "Telnet deshabilitado"
+    },
+    {
+      "device": "SW1-CISCO",
+      "control": "Timeout VTY maximo 10 minutos",
+      "status": "CUMPLE",
+      "evidence": "SW1-CISCO_01.txt",
+      "detail": "Tiempo de inactividad"
+    },
+    {
+      "device": "SW1-CISCO",
+      "control": "HTTP deshabilitado",
+      "status": "CUMPLE",
+      "evidence": "SW1-CISCO_05.txt",
+      "detail": "Estado operativo del servidor web"
+    },
+    {
+      "device": "SW1-CISCO",
+      "control": "HTTPS deshabilitado",
+      "status": "CUMPLE",
+      "evidence": "SW1-CISCO_05.txt",
+      "detail": "Estado operativo del servidor web"
+    },
+    {
+      "device": "SW1-CISCO",
+      "control": "Algoritmos SSH heredados",
+      "status": "RIESGO",
+      "evidence": "SW1-CISCO_02.txt",
+      "detail": "Limitacion criptografica de IOSv"
+    },
+    {
+      "device": "FGT-01",
+      "control": "Acceso administrativo port1",
+      "status": "RIESGO",
+      "evidence": "FGT-01_02.txt",
+      "detail": "Protocolos: http, ping, ssh"
+    },
+    {
+      "device": "FGT-01",
+      "control": "Acceso administrativo port2",
+      "status": "CUMPLE",
+      "evidence": "FGT-01_02.txt",
+      "detail": "Protocolos: ping"
+    },
+    {
+      "device": "FGT-01",
+      "control": "Acceso administrativo port3",
+      "status": "CUMPLE",
+      "evidence": "FGT-01_02.txt",
+      "detail": "Protocolos: ping"
+    },
+    {
+      "device": "FGT-01",
+      "control": "Politicas con servicio ALL",
+      "status": "CUMPLE",
+      "evidence": "FGT-01_03.txt",
+      "detail": "Verificacion de servicios permisivos"
+    },
+    {
+      "device": "FGT-01",
+      "control": "Version antigua FortiOS",
+      "status": "RIESGO",
+      "evidence": "FGT-01_01.txt",
+      "detail": "Revisar ciclo de soporte y actualizaciones"
+    }
+  ]
+}

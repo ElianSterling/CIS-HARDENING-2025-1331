@@ -1,0 +1,23 @@
+{
+  "device": "FGT-01",
+  "mode": "verify",
+  "timestamp_utc": "20261112T223456Z",
+  "status": "VERIFICADO",
+  "applied": [],
+  "before": {
+    "admin-telnet": "disable",
+    "admin-lockout-duration": "300",
+    "admin-lockout-threshold": "3",
+    "admin-ssh-grace-time": "30",
+    "admin-ssh-v1": "disable",
+    "admintimeout": "5"
+  },
+  "after": {
+    "admin-telnet": "disable",
+    "admin-lockout-duration": "300",
+    "admin-lockout-threshold": "3",
+    "admin-ssh-grace-time": "30",
+    "admin-ssh-v1": "disable",
+    "admintimeout": "5"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "device": "SW1-CISCO",
+  "timestamp_utc": "2026-11-12T22:07:36.869504+00:00",
+  "before": {
+    "HTTP": "enabled",
+    "HTTPS": "enabled"
+  },
+  "after": {
+    "HTTP": "disabled",
+    "HTTPS": "disabled"
+  },
+  "commands": [
+    "no ip http server",
+    "no ip http secure-server"
+  ],
+  "ssh_v2_verified": true,
+  "startup_saved": true
+}

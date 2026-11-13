@@ -1,0 +1,43 @@
+{
+  "device": "R1-CISCO",
+  "date": "20261112T222314Z",
+  "status": "VERIFICADO_Y_GUARDADO",
+  "before": {
+    "source_route_disabled": false,
+    "interfaces": {
+      "GigabitEthernet0/0": {
+        "proxy_arp": "enabled",
+        "icmp_redirects": "always"
+      },
+      "GigabitEthernet0/1": {
+        "proxy_arp": "enabled",
+        "icmp_redirects": "always"
+      }
+    }
+  },
+  "after": {
+    "source_route_disabled": true,
+    "interfaces": {
+      "GigabitEthernet0/0": {
+        "proxy_arp": "disabled",
+        "icmp_redirects": "never"
+      },
+      "GigabitEthernet0/1": {
+        "proxy_arp": "disabled",
+        "icmp_redirects": "never"
+      }
+    }
+  },
+  "commands": [
+    "no ip source-route",
+    "interface GigabitEthernet0/0",
+    "no ip proxy-arp",
+    "no ip redirects",
+    "exit",
+    "interface GigabitEthernet0/1",
+    "no ip proxy-arp",
+    "no ip redirects",
+    "exit"
+  ],
+  "error": null
+}
