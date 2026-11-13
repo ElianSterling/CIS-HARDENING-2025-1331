@@ -29,8 +29,8 @@
 
 1. **COMPLETADO 13/11/2026:** FortiGate pasó de 300 a **900 s**, confirmado por auditoría posterior. El control CIS 2.2.2 ahora CUMPLE.
 2. Mantener **CIS 2.4.5 NO CUMPLE** mientras `port1` permita HTTP. Registrar el aislamiento de la red como medida compensatoria; nunca afirmar cumplimiento total.
-3. **Orquestador ejecutado en vivo**. Confirmar las pruebas offline (unittest/GitHub Actions) y conservar su salida.
-4. Preparar versiones amplias de los running-configs, censurar cualquier línea no permitida y revisarlas antes de su publicación.
+3. **COMPLETADO: pruebas offline del evaluador ejecutadas 13/11/2026.** `python -m unittest discover -s tests -v`: **3 pruebas, todas OK**, con escenarios simulados 300 s / 900 s y excepción HTTP. Estas pruebas no sustituyen la verificación real de los dispositivos.
+4. **GENERADOS, PENDIENTES DE REVISIÓN Y PUBLICACIÓN:** archivos Cisco estructurados y censurados desde baseline `20261113T123310Z`: R1 34 líneas permitidas/63 censuradas; SW1 24 permitidas/51 censuradas. El extracto final de FortiGate también fue generado y conserva los 900 s verificados. No subir respaldos originales.
 
 ## Video y entrega
 
