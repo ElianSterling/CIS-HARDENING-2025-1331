@@ -1,6 +1,14 @@
 # CIS Hardening — Router, Switch y Firewall
 
-**Video demostrativo:** pendiente de añadir al completar la grabación.
+## Video demostrativo
+
+**[▶ Ver demostración completa de CIS Hardening en YouTube](https://youtu.be/o8A4TlShpM0)**
+
+[![Demostración de laboratorio CIS Hardening: Router, Switch y Firewall](https://img.youtube.com/vi/o8A4TlShpM0/hqdefault.jpg)](https://youtu.be/o8A4TlShpM0)
+
+**Enlace directo:** https://youtu.be/o8A4TlShpM0
+
+---
 
 **Estudiante:** Elian Sterling Severino Mejía  
 **Matrícula:** 2025-1331  
